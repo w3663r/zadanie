@@ -15,6 +15,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path('asd/', include(router.urls)),
     path('', views.index,name='list'),
+    #path('search', views.search,name='search'),
     path('add_osoba',views.CreateOsoba.as_view(), name='add_osoba'),
     path('add_telefon/<pk>',views.CreateTelefon.as_view(), name='add_telefon'),
     path('add_email/<pk>',views.CreateEmail.as_view(), name='add_email'),

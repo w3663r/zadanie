@@ -1,15 +1,25 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 from . import models
 from .forms import OsobaForm, TelefonForm, EmailForm
 from django.http import HttpResponseBadRequest
+from django.db.models import Q
+from .util import search
 
 def index(request):
+
     from .util import get_data_list
-    context={}
     l = get_data_list()
+
+    query = request.GET.get('q', '')
+    results = search(query)
+    context={}
+
     context['lista']=l
+    context['query']=query
+    context['results']=results
+    
     return render(request, 'spis_tel/index.html', context)
 
 class CreateOsoba(CreateView):
