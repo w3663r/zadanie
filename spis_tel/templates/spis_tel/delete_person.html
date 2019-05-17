@@ -1,0 +1,6 @@
+
+<form><input type="submit" value="Save"></form>
+<form method="post">{% csrf_token %}
+    <p>na pewno chcesz usunąć "{{osoba_delete}}"?</p>
+    <input type="submit" value="Confirm">
+</form>

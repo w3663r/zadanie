@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <title>Książka Telefoniczna</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>Książka telefoniczna</h1>
+  <p>Mariusz Kędzierski</p> 
+<a href="add_osoba" class="btn btn-secondary">Dodaj osobę</a>
+</div>
+<div class="container">
+{% for o in lista %}
+  <div class="row">
+    <div class="col-sm-8">
+      <p><h3>{{o.osoba.imie}}   {{o.osoba.nazwisko}}</h3>
+ 	<div class="btn-group">
+  	   <a href="/update/{{o.osoba.id}}" class="btn btn-secondary">Edytuj osobę</a>
+{%if not o.telefony and not o.emaile%}<a href="/delete/{{o.osoba.id}}" class="btn btn-secondary">Usuń osobę</a>{%endif%}
+  	   
+  	   <a href="/add_telefon/{{o.osoba.id}}" class="btn btn-secondary">Dodaj Telefon</a>
+  	   <a href="/add_email/{{o.osoba.id}}" class="btn btn-secondary">Dodaj Email</a>
+	</div> </p>
+        <div class="col-sm-4">
+                {% if o.telefony %}
+	<h4>Telefony:</h4>
+		{% for tel in o.telefony %}
+		<p>{{tel}}</p>
+		{%endfor%}</p></p>
+		{%endif%}	
+		</div>
+        <div class="col-sm-4">
+		{% if o.emaile %}
+	<h4>Emaile:</h4>
+		{% for em in o.emaile %}
+		<p>{{em}}</p>
+		{%endfor%}
+		{%endif%}
+		</div>
+    </div>{%endfor%}
+  </div>
+</div>
+
+</body>
+</html>
