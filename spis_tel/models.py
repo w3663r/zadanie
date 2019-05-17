@@ -2,7 +2,7 @@ from django.db import models
 
 
 class OsobaManager(models.Manager):
-    '''nie wykorzystywane, zwraca listę obiektów typu Osoba z atrybutem telefon (lista str telefonow)'''
+    '''nie wykorzystywane, zwraca listę obiektów typu Osoba z atrybutem telefon (lista telefonow w postaci str)'''
     def with_info(self):
         from django.db import connection
         results = []
