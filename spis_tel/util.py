@@ -17,8 +17,7 @@ def search(query):
 	if query:
 		if len(query.split(' ')) > 1:
 			new_query = query.split(' ')
-			#if ' ' in query as 'joanna ', new query contains '', and search returns all objects, not right
-			osoba_qset = (Q(imie__icontains=new_query[0])|Q(nazwisko__icontains=new_query[1])|Q(imie__icontains=new_query[1])|Q(nazwisko__icontains=new_query[0]))
+			osoba_qset = (Q(imie__icontains=new_query[0])&Q(nazwisko__icontains=new_query[1])|Q(imie__icontains=new_query[1])&Q(nazwisko__icontains=new_query[0]))
 		else : osoba_qset = (Q(imie__icontains=query)|Q(nazwisko__icontains=query))
 		osoby = models.Osoba.objects.filter(osoba_qset).distinct()
 		telefony = models.Telefon.objects.filter(Q(telefon__icontains=query)).distinct()
