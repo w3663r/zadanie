@@ -2,7 +2,7 @@ from django.db import models
 
 
 class OsobaManager(models.Manager):
-    '''nie wykorzystywane, zwraca listę obiektów typu Osoba z atrybutem telefon (lista str telefonow)'''
+    '''nie wykorzystywane, zwraca listę obiektów typu Osoba z atrybutem telefon (lista telefonów w postaci str)'''
     def with_info(self):
         from django.db import connection
         results = []
@@ -27,21 +27,27 @@ class Osoba(models.Model):
 
 	imie = models.CharField(max_length=50)
 	nazwisko = models.CharField(max_length=50)
+	def imieinazwisko(self):
+		return '{} {}'.format(self.imie, self.nazwisko)
 	objects = OsobaManager()
+
+	@classmethod
+	def get_active(self):
+		return 'aaa'
 
 	def __str__(self):
 		return '{} {}'.format(self.imie, self.nazwisko)
 
 class Telefon(models.Model):
 
-	osoba = models.ForeignKey(Osoba,related_name='telefony', editable=True, on_delete=models.CASCADE)
+	osoba = models.ForeignKey(Osoba,related_name='telefony', editable=False, on_delete=models.CASCADE)
 	telefon = models.CharField(max_length=50)
 	def __str__(self):
 		return '{}'.format(self.telefon)
 
 class Email(models.Model):
 
-	osoba = models.ForeignKey(Osoba, editable=True,related_name='emaile', on_delete=models.CASCADE)
+	osoba = models.ForeignKey(Osoba, editable=False,related_name='emaile', on_delete=models.CASCADE)
 	email = models.EmailField()
 	def __str__(self):
 		return '{}'.format(self.email)

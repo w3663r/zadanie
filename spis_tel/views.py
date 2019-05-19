@@ -15,7 +15,6 @@ def index(request):
     query = request.GET.get('q', '')
     results = search(query)
     context={}
-
     context['lista']=l
     context['query']=query
     context['results']=results
