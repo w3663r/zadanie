@@ -15,19 +15,16 @@ def search(query):
 	
 	l = get_data_list()
 	if query:
-		print (query)
 		if len(query.split(' ')) > 1:
 			new_query = query.split(' ')
-			#on ' ' in query, new query contains '', and search returns all objects
-			print(new_query)
+			#if ' ' in query as 'joanna ', new query contains '', and search returns all objects, not right
 			osoba_qset = (Q(imie__icontains=new_query[0])|Q(nazwisko__icontains=new_query[1])|Q(imie__icontains=new_query[1])|Q(nazwisko__icontains=new_query[0]))
 		else : osoba_qset = (Q(imie__icontains=query)|Q(nazwisko__icontains=query))
 		osoby = models.Osoba.objects.filter(osoba_qset).distinct()
 		telefony = models.Telefon.objects.filter(Q(telefon__icontains=query)).distinct()
 		emaile = models.Email.objects.filter(Q(email__icontains=query)).distinct()
-		print(list(osoby))
 		results = []
-		
+		# add object from l list to results, avoid duplicates
 		if osoby:
 			lista_osob = [o.id for o in osoby]
 			results += [i for i in l if i['osoba'].id in lista_osob and i not in results] 
