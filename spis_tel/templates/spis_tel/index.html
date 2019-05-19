@@ -64,25 +64,25 @@
   	   		<a href="/add_email/{{o.osoba.id}}" class="btn btn-secondary">Dodaj Email</a>
 		</div> </p>
         <div class="col-sm-3">
-        	{% if o.telefony %}
-				<h4>Telefony:</h4>
-				{% for tel in o.telefony %}
-					<p>{{tel}}</p>
-				{%endfor%}
-			{% else %}
-				<h6>Brak telefonow</h6></p></p>
-			{%endif%}	
-		</div>
+		{% if o.telefony %}
+			<h4>Telefony:</h4>
+			{% for tel in o.telefony %}
+				<p>{{tel}}</p>
+			{%endfor%}
+		{% else %}
+			<h6>Brak telefonow</h6></p></p>
+		{%endif%}	
+	</div>
         <div class="col-sm-3">
-			{% if o.emaile %}
-				<h4>Emaile:</h4>
-				{% for em in o.emaile %}
-					<p>{{em}}</p>
-				{%endfor%}
-			{% else %}
-				<h6>Brak emaili</h6></p></p>
-			{%endif%}
-		</div>
+		{% if o.emaile %}
+			<h4>Emaile:</h4>
+			{% for em in o.emaile %}
+				<p>{{em}}</p>
+			{%endfor%}
+		{% else %}
+			<h6>Brak emaili</h6></p></p>
+		{%endif%}
+	</div>
     	</div>
 	{%endfor%}
   </div>
