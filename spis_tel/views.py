@@ -4,7 +4,6 @@ from django.urls import reverse, reverse_lazy
 from . import models
 from .forms import OsobaForm, TelefonForm, EmailForm
 from django.http import HttpResponseBadRequest
-from django.db.models import Q
 from .util import search
 
 def index(request):
