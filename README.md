@@ -6,7 +6,7 @@ python3 manage.py loaddata fixture.json</p>
 python3 manage.py runserver</p>
 </p>
 </p>
-or 
+<b>or</b> 
 </p>
 </p>
 git clone https://github.com/w3663r/zadanie.git</p>
