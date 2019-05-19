@@ -15,7 +15,7 @@ def search(query):
 	
 	l = get_data_list()
 	if query:
-		if len(query.split(' ')) > 1:
+		if len(query.split(' ')) > 1 and query.strip():
 			list_query = query.split(' ')
 			osoba_qset = (Q(imie__icontains=list_query[0])&Q(nazwisko__icontains=list_query[1])|Q(imie__icontains=list_query[1])&Q(nazwisko__icontains=list_query[0]))
 		else : osoba_qset = (Q(imie__icontains=query)|Q(nazwisko__icontains=query))
