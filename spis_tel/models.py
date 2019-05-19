@@ -28,10 +28,6 @@ class Osoba(models.Model):
 
 	imie = models.CharField(max_length=50)
 	nazwisko = models.CharField(max_length=50)
-	def imieinazwisko(self):
-		return '{} {}'.format(self.imie, self.nazwisko)
-	objects = OsobaManager()
-
 	def __str__(self):
 		return '{} {}'.format(self.imie, self.nazwisko)
 
