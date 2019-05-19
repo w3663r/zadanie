@@ -2,7 +2,8 @@ from django.db import models
 
 
 class OsobaManager(models.Manager):
-    '''nie wykorzystywane, zwraca listę obiektów typu Osoba z atrybutem telefon (lista telefonów w postaci str)'''
+    '''nie wykorzystywane, zwraca listę obiektów typu Osoba z atrybutem telefon (lista telefonow w postaci str)'''
+
     def with_info(self):
         from django.db import connection
         results = []
@@ -30,10 +31,6 @@ class Osoba(models.Model):
 	def imieinazwisko(self):
 		return '{} {}'.format(self.imie, self.nazwisko)
 	objects = OsobaManager()
-
-	@classmethod
-	def get_active(self):
-		return 'aaa'
 
 	def __str__(self):
 		return '{} {}'.format(self.imie, self.nazwisko)
