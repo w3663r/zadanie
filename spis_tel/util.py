@@ -16,8 +16,8 @@ def search(query):
 	l = get_data_list()
 	if query:
 		if len(query.split(' ')) > 1:
-			new_query = query.split(' ')
-			osoba_qset = (Q(imie__icontains=new_query[0])&Q(nazwisko__icontains=new_query[1])|Q(imie__icontains=new_query[1])&Q(nazwisko__icontains=new_query[0]))
+			list_query = query.split(' ')
+			osoba_qset = (Q(imie__icontains=list_query[0])&Q(nazwisko__icontains=list_query[1])|Q(imie__icontains=list_query[1])&Q(nazwisko__icontains=list_query[0]))
 		else : osoba_qset = (Q(imie__icontains=query)|Q(nazwisko__icontains=query))
 		osoby = models.Osoba.objects.filter(osoba_qset).distinct()
 		telefony = models.Telefon.objects.filter(Q(telefon__icontains=query)).distinct()
