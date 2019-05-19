@@ -24,7 +24,8 @@ def search(query):
 		emaile = models.Email.objects.filter(Q(email__icontains=query)).distinct()
 		results = []
 		# match search results with get_data_list list of dictionaries, add to results, avoid duplicates
-		if osoby:
+		#first approach:
+		'''if osoby:
 			lista_osob = [o.id for o in osoby]
 			results += [i for i in l if i['osoba'].id in lista_osob and i not in results] 
 		if telefony: 
@@ -32,7 +33,9 @@ def search(query):
 			results += [i for i in l if i['osoba'].id in lista_osob and i not in results] 
 		if emaile:
 			lista_osob = [o.osoba_id for o in emaile]
-			results += [i for i in l if i['osoba'].id in lista_osob and i not in results] 
+			results += [i for i in l if i['osoba'].id in lista_osob and i not in results] '''
+		#second approach:
+		results = [i for i in l if i['osoba'] in osoby or set(i['telefony']).intersection(set(telefony)) or set(i['emaile']).intersection(set(emaile))]
 
 	else: results = []
 	return results
