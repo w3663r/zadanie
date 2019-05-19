@@ -24,7 +24,7 @@ def search(query):
 		telefony = models.Telefon.objects.filter(Q(telefon__icontains=query)).distinct()
 		emaile = models.Email.objects.filter(Q(email__icontains=query)).distinct()
 		results = []
-		# add object from l list to results, avoid duplicates
+		# match search results with get_data_list list of dictionaries, add to results, avoid duplicates
 		if osoby:
 			lista_osob = [o.id for o in osoby]
 			results += [i for i in l if i['osoba'].id in lista_osob and i not in results] 
