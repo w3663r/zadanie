@@ -68,7 +68,7 @@ class DeleteOsoba(DeleteView):
             if not models.Telefon.objects.filter(osoba_id=self.kwargs.get('pk')) and not models.Email.objects.filter(osoba_id=self.kwargs.get('pk')):
                 return _dispatch(self,request, *args, **kwargs)
             else:
-                return HttpResponseBadRequest(content='ERROR')
+                return HttpResponseBadRequest(content='''ERROR <form action="/"><input type="submit" value="Powrót"/></form>''')
         return decorator
 
     @deleteable
