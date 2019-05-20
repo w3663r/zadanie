@@ -5,8 +5,8 @@ from itertools import chain
 def get_data_list():
     '''lista slownikow, takich że : {'osoba': Osoba, 'telefony': lista Telefon'ow, 'emaile': lista Email'i}'''
     os_obj = models.Osoba.objects.all
-    tel_obj = models.Telefon.filter
-    em_obj = models.Email.filter
+    tel_obj = models.Telefon.objects.filter
+    em_obj = models.Email.objects.filter
     return ([{'osoba':o, 'telefony':list(tel_obj(osoba_id=o.id)), 'emaile':list(em_obj(osoba_id=o.id))} for o in os_obj()])
     
 
