@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from . import models
 from .forms import OsobaForm, TelefonForm, EmailForm
 from django.http import HttpResponseBadRequest
