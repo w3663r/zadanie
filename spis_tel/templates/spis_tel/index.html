@@ -11,80 +11,78 @@
 <body>
 
 <div class="jumbotron text-center">
-	<h1>Książka telefoniczna</h1>
-  	<p>Mariusz Kędzierski</p> 
-	<a href="add_osoba" class="btn btn-secondary">Dodaj osobę</a>
-	<form action="" method="GET">
-		<label for="q">Wyszukiwanie: </label>
-		<input type="text" name="q" value="{{ query|escape }}">
-		<input type="submit" value="Wyszukaj">
-	</form>
-	{% if query %}
-	<h4>Wyniki wyszukiwania "{{ query|escape }}":</h4>
-	{% if results %}
-	<ul>
-		{% for o in results %}
-			<div class="row">
-     		<p><h3>{{o.osoba.imie}}   {{o.osoba.nazwisko}}</h3></p>
-            {% if o.telefony %}
-				<h4>Telefony:</h4>
-				{% for tel in o.telefony %}
-					<li>{{tel}}</li>
-				{%endfor%}</p></p>
-			{% else %}
-				<h6>Brak telefonow</h6>
-			{%endif%}
+  <h1>Książka telefoniczna</h1>
+  <p>Mariusz Kędzierski</p> 
+<a href="add_osoba" class="btn btn-secondary">Dodaj osobę</a>
+<form action="" method="GET">
+<label for="q">Wyszukiwanie: </label>
+<input type="text" name="q" value="{{ query|escape }}">
+<input type="submit" value="Wyszukaj">
+</form>
+{% if query %}
+<h4>Wyniki wyszukiwania "{{ query|escape }}":</h4>
+{% if results %}
+<ul>
+{% for o in results %}
+  <div class="row">
+      <p><h3>{{o.imie}}   {{o.nazwisko}}</h3></p>
+             	{% if o.telefony.all %}
+	<h4>Telefony:</h4>
+			{% for tel in o.telefony.all %}
+				<li>{{tel}}</li>
+			{%endfor%}</p></p>
+		{% else %}
+			<h6>Brak telefonow</h6>
+		{%endif%}
 	
-	    	{% if o.emaile %}
-				<h4>Emaile:</h4>
-				{% for em in o.emaile %}
-					<li>{{em}}</li>
-				{%endfor%}
-			{% else %}
-				<h6>Brak Emaili</h6>
-			{%endif%}
-   			</div>
-		{%endfor%}
-	</ul>
-	{% else %}
-		<p>Brak wynikow wyszukiwania</p>
-	{% endif %}
-	{% endif %}
+		{% if o.emaile.all %}
+	<h4>Emaile:</h4>
+			{% for em in o.emaile.all %}
+				<li>{{em}}</li>
+			{%endfor%}
+		{% else %}
+		<h6>Brak Emaili</h6>
+		{%endif%}
+    </div>{%endfor%}
+</ul>
+{% else %}
+<p>Brak wynikow wyszukiwania</p>
+{% endif %}
+{% endif %}
 </div>
 <div class="container">
-	{% for o in lista %}
-    	<div class="col-sm-8">
-     	<p><h3>{{o.osoba.imie}}   {{o.osoba.nazwisko}}</h3>
- 		<div class="btn-group">
-  	   		<a href="/update/{{o.osoba.id}}" class="btn btn-secondary">Edytuj osobę</a>
-			{%if not o.telefony and not o.emaile%}
-				<a href="/delete/{{o.osoba.id}}" class="btn btn-secondary">Usuń osobę</a>
-			{%endif%}
-  	   		<a href="/add_telefon/{{o.osoba.id}}" class="btn btn-secondary">Dodaj Telefon</a>
-  	   		<a href="/add_email/{{o.osoba.id}}" class="btn btn-secondary">Dodaj Email</a>
-		</div> </p>
-        <div class="col-sm-3">
-		{% if o.telefony %}
-			<h4>Telefony:</h4>
-			{% for tel in o.telefony %}
+{% for o in object_list %}
+
+    <div class="col-sm-8">
+      <p><h3>{{o.imie}}   {{o.nazwisko}}</h3>
+ 	<div class="btn-group">
+  	   <a href="/update/{{o.id}}" class="btn btn-secondary">Edytuj osobę</a>
+{%if not o.telefony.all and not o.emaile.all%}<a href="/delete/{{o.id}}" class="btn btn-secondary">Usuń osobę</a>{%endif%}
+  	   
+  	   <a href="/add_telefon/{{o.id}}" class="btn btn-secondary">Dodaj Telefon</a>
+  	   <a href="/add_email/{{o.id}}" class="btn btn-secondary">Dodaj Email</a>
+	</div> </p>
+        <div class="col-sm-4">
+                {% if o.telefony.all %}
+	<h4>Telefony:</h4>
+			{% for tel in o.telefony.all %}
 				<p>{{tel}}</p>
 			{%endfor%}
 		{% else %}
 			<h6>Brak telefonow</h6></p></p>
 		{%endif%}	
-	</div>
-        <div class="col-sm-3">
-		{% if o.emaile %}
-			<h4>Emaile:</h4>
-			{% for em in o.emaile %}
+		</div>
+        <div class="col-sm-4">
+		{% if o.emaile.all %}
+	<h4>Emaile:</h4>
+			{% for em in o.emaile.all %}
 				<p>{{em}}</p>
 			{%endfor%}
 		{% else %}
 			<h6>Brak emaili</h6></p></p>
 		{%endif%}
-	</div>
-    	</div>
-	{%endfor%}
+		</div>
+    </div>{%endfor%}
   </div>
 
 
