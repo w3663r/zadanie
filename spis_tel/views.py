@@ -1,33 +1,34 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from . import models
 from .forms import OsobaForm, TelefonForm, EmailForm
 from django.http import HttpResponseBadRequest
 from .util import search
 
-def index(request):
 
-    from .util import get_data_list
-    l = get_data_list()
+class Index(ListView):
+    model = models.Osoba
+    template_name = 'spis_tel/index.html'
 
-    query = request.GET.get('q', '')
-    results = search(query)
-    context={}
-    context['lista']=l
-    context['query']=query
-    context['results']=results
-    
-    return render(request, 'spis_tel/index.html', context)
+    def get_context_data(self, **kwargs):
+        query = self.request.GET.get('q', '')
+        results = search(query)
+        data = super().get_context_data(**kwargs)
+        data['query'] = query
+        data['results'] = results
+        return data
 
 class CreateOsoba(CreateView):
-    form = OsobaForm
+
     template_name = 'spis_tel/add_person.html'
     fields = ('imie', 'nazwisko')
     model = models.Osoba
     success_url = reverse_lazy('list')
 
 class CreateTelefon(CreateView):
+
+    context_object_name = 'osoba'
     form = TelefonForm
     template_name = 'spis_tel/add_telefon.html'
     fields = ('telefon',)
@@ -50,7 +51,8 @@ class CreateEmail(CreateView):
         return super(CreateEmail, self).form_valid(form)
 
 class UpdateOsoba(UpdateView):
-    form = OsobaForm
+
+    context_object_name = 'osoba'
     template_name = 'spis_tel/update_person.html'
     fields = ('imie', 'nazwisko')
     model = models.Osoba

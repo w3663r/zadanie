@@ -5,7 +5,7 @@ from spis_tel import models
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index,name='list'),
+    path('', views.Index.as_view(),name='list'),
     path('add_osoba',views.CreateOsoba.as_view(), name='add_osoba'),
     path('add_telefon/<pk>',views.CreateTelefon.as_view(), name='add_telefon'),
     path('add_email/<pk>',views.CreateEmail.as_view(), name='add_email'),
