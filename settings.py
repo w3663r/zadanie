@@ -5,7 +5,7 @@ BASE_DIR = os.path.abspath(__file__)[:-12]
 #SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '&)w1^mublhc@9omk-alhozcf_plaa4dvz8a#p9y(ehc@c)9*hb'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
