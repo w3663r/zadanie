@@ -4,6 +4,8 @@ from spis_tel import views
 from spis_tel import models
 
 urlpatterns = [
+	path('test', views.test, name='test'),
+	path('data', views.send, name='data'),
     path('admin/', admin.site.urls),
     path('', views.Index.as_view(),name='list'),
     path('add_osoba',views.CreateOsoba.as_view(), name='add_osoba'),

@@ -5,7 +5,7 @@ BASE_DIR = os.path.abspath(__file__)[:-12]
 #SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '&)w1^mublhc@9omk-alhozcf_plaa4dvz8a#p9y(ehc@c)9*hb'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'spis_tel',
 ]
 
@@ -74,6 +75,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'pl'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
+LANGUAGE_CODE = 'pl'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles') 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+     os.path.join(PROJECT_ROOT, 'static'),
+ )

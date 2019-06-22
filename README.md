@@ -12,3 +12,4 @@ python3 manage.py runserver</p>
 git clone https://github.com/w3663r/zadanie.git</p>
 cd zadanie</p>
 python3 manage.py doit</p>
+# test

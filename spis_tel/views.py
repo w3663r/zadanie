@@ -2,10 +2,54 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from . import models
+from rest_framework import serializers
 from .forms import OsobaForm, TelefonForm, EmailForm
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, JsonResponse
 from .util import search
+import json
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 
+class OsobaSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Osoba
+        fields = ('imie','nazwisko','telefony',)
+
+@csrf_exempt
+def test(request):
+    if request.method == 'GET':
+        osoby = models.Osoba.objects.all()
+        osoby_serializer = OsobaSerializer(osoby, many=True,context={'request': request})
+        return JsonResponse(osoby_serializer.data, safe=False)
+        # In order to serialize objects, we must set 'safe=False'
+
+@csrf_exempt
+def telefondetail(request):
+    if request.method == 'GET':
+        osoby = models.Osoba.objects.all()
+        osoby_serializer = OsobaSerializer(osoby, many=True,context={'request': request})
+        return JsonResponse(osoby_serializer.data, safe=False)
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'osoba': reverse('osoba-list', request=request, format=format),
+        'snippets': reverse('snippet-list', request=request, format=format)
+    })
+'''
+def test(request):
+	form = {"obiekt1":"a","dikt":"2"}
+	forms = json.dumps(form)
+	return render(request, 'spis_tel/test.html', {'form': forms})
+'''
+def send(request):
+
+    data = [{'name': 'Peter', 'email': 'peter@example.org'},
+            {'name': 'Julia', 'email': 'julia@example.org'}]
+
+    return JsonResponse(data, safe=False)
 
 class Index(ListView):
     model = models.Osoba

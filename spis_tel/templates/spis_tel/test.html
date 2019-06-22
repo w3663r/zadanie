@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.mi\n.css" rel="stylesheet">
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<title>Hello Vue</title>
+	</head>
+	<body>
+		<div id="app">
+			<h1>The multiplication table of 4.</h1>
+			<ul class="list-group">
+				<li v-for="i in 11" class="list-group-item">
+						[[ i ]] times 4 equals [[ i * 4 ]]. [[ cont ]]
+				</li>
+			</ul>
+
+
+
+			<h1>Printing Data</h1>
+			<ul class="list-group">
+				[[ cont ]]
+				<li v-for="d in cont" class="list-group-item">
+						[[ d ]] times 4 equals [[ d ]].
+				</li>
+			</ul>
+			<hi>hi </hi>
+		</div>
+
+	</body>
+
+<script type="text/javascript">
+
+var dataURL = 'http://127.0.0.1:8000/data';
+
+new Vue({
+	el: '#app',
+	delimiters: ['[[', ']]'],
+  	data: {
+    	cont: [],
+  			},
+	ready : function() {
+		$.get('/data', function(x){
+			this.cont = x;
+				})
+			}
+
+   });
+Vue.component('hi',{
+	template: "hi ewq there" });
+
+</script>
+
+</html>
